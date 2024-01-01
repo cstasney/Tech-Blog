@@ -11,7 +11,15 @@ router.get('/', async (req, res) => {
 
         const posts = postData.map((post) => post.get({ plain: true }));
 
+        // if (!req.session.loggedIn) {
         res.render('all-posts', { posts });
+        // } else {
+        //     res.render('all-posts-admin', {
+        //         layout: 'dashboard',
+        //         posts,
+        //       });
+        // }
+
     } catch (err) {
         res.status(500).json(err);
     }
