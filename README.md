@@ -11,6 +11,8 @@
 
 🪧 This is a full stack application that utilizes MYSQL, sequelize, and express.js
 
+<img src ="./images/Screenshot 2024-01-01 172702.png">
+
 ## Table of Contents
 - [Description](#description)
 - [User Story](#user-story)
