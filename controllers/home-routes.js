@@ -11,15 +11,7 @@ router.get('/', async (req, res) => {
 
         const posts = postData.map((post) => post.get({ plain: true }));
 
-        // if (!req.session.loggedIn) {
         res.render('all-posts', { posts });
-        // } else {
-        //     res.render('all-posts-admin', {
-        //         layout: 'dashboard',
-        //         posts,
-        //       });
-        // }
-
     } catch (err) {
         res.status(500).json(err);
     }
@@ -28,24 +20,27 @@ router.get('/', async (req, res) => {
 // get desired blog post
 router.get('/post/:id', async (req, res) => {
     try {
-        const postData = await findByPk(req.params.id, {
-            include: [User, {
-                model: Comment,
-                include: [User],
-            }]
-        })
-        if (postData) {
-            const post = postData.get({ plain: true });
-
-            res.render('single-post', { post });
-        } else {
-            res.status(404).end
-        }
-
+      const postData = await Post.findByPk(req.params.id, {
+        include: [
+          User,
+          {
+            model: Comment,
+            include: [User],
+          },
+        ],
+      });
+  
+      if (postData) {
+        const post = postData.get({ plain: true });
+  
+        res.render('single-post', { post });
+      } else {
+        res.status(404).end();
+      }
     } catch (err) {
-        res.status(500).json(err)
+      res.status(500).json(err);
     }
-})
+  });
 
 
 router.get('/login', (req, res) => {
